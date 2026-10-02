@@ -1,0 +1,24 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 900" role="img" aria-labelledby="title desc">
+  <title id="title">Concepto de decoración de parques</title>
+  <desc id="desc">Ilustración premium para decoración navideña en parques y espacios públicos.</desc>
+  <defs>
+    <linearGradient id="bg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#091321"/>
+      <stop offset="100%" stop-color="#0f3250"/>
+    </linearGradient>
+  </defs>
+  <rect width="1200" height="900" rx="48" fill="url(#bg)"/>
+  <circle cx="948" cy="142" r="128" fill="rgba(80,230,255,.16)"/>
+  <path d="M0 720c120-90 252-134 398-134s280 44 402 132 260 104 400 42v160H0z" fill="#0a2438"/>
+  <path d="M220 300c24-30 54-46 92-46 42 0 76 18 100 54 24-36 58-54 100-54 54 0 96 26 126 78" fill="none" stroke="#50e6ff" stroke-width="16" stroke-linecap="round"/>
+  <path d="M228 302 156 440h54L126 580h86L116 736h292L312 580h86L314 440h54z" fill="none" stroke="#1a7cff" stroke-width="16" stroke-linejoin="round"/>
+  <path d="M832 254c26 0 52 10 76 28s40 48 48 88" fill="none" stroke="#ffd257" stroke-width="14" stroke-linecap="round"/>
+  <circle cx="830" cy="428" r="92" fill="none" stroke="#50e6ff" stroke-width="14"/>
+  <circle cx="830" cy="428" r="54" fill="none" stroke="#ffd257" stroke-width="12"/>
+  <g fill="#ffd257">
+    <circle cx="196" cy="492" r="14"/>
+    <circle cx="320" cy="562" r="14"/>
+    <circle cx="852" cy="428" r="14"/>
+    <circle cx="766" cy="428" r="14"/>
+  </g>
+</svg>
