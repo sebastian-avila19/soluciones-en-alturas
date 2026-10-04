@@ -1,4 +1,4 @@
-# S.E.A. · Soluciones en Alturas
+﻿# S.E.A. · Soluciones en Alturas
 
 Landing page responsive para Soluciones en Alturas, construida con HTML, CSS y JavaScript vanilla para mantenerla rápida, accesible y fácil de desplegar en cualquier hosting estático.
 
@@ -17,7 +17,6 @@ Después abre <http://localhost:4173>.
 - `index.html`: contenido semántico, navegación y secciones de la landing.
 - `styles.css`: identidad visual, layout responsive y estados de accesibilidad.
 - `script.js`: menú móvil y comportamiento del encabezado.
-- `hologram-three.js`: visor Three.js del holograma humano cargado desde `assets/models/human.glb`, con materiales separados para superficie interior oscura, contorno Fresnel y edges cian tenues, bloom reducido, partículas, binarios, rotación automática y OrbitControls. Si el modelo no está disponible, muestra un placeholder discreto.
 - `assets/models/human.glb`: modelo humano GLB utilizado por el visor; mientras no exista, la sección muestra únicamente el placeholder “Modelo holográfico pendiente”.
 - `assets/logo.png`: logo oficial de S.E.A.
 - `assets/trabajos/`: fotografías de operaciones y trabajos en alturas tomadas de la página temporal de la empresa.
@@ -34,3 +33,5 @@ Después abre <http://localhost:4173>.
 **Fotos reales a subir (WebP):** hero 1920×1080 (`overrides.css`, `.hero-photo`), 4 fotos de servicios 800×600 (tarjetas en `#servicios`), galería de Navidad y antes/después de casos. Cada espacio tiene un comentario HTML indicando qué foto va.
 
 **Dominio propio:** cambiar canonical, og:url, og:image, JSON-LD, `sitemap.xml` y `robots.txt`.
+
+- `tools/inline-css.py`: tras editar `styles.css` u `overrides.css` ejecutar `python tools/inline-css.py` para regenerar el CSS en línea de `index.html` (mejora LCP).

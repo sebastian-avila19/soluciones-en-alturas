@@ -2,7 +2,7 @@
   "name": "sebastian-avila19-symmetrical-parakeet",
   "version": "1.0.0",
   "description": "Landing page responsive para Soluciones en Alturas, construida con HTML, CSS y JavaScript vanilla para mantenerla rápida, accesible y fácil de desplegar en cualquier hosting estático.",
-  "main": "hologram-three.js",
+  "main": "script.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },

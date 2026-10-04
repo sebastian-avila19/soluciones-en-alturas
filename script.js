@@ -70,37 +70,70 @@ const projectCategories = {
   fachadas: {
     summary: "Lavado, limpieza y mantenimiento de fachadas con acceso por cuerdas.",
     items: [
-      photo(`${FACHADAS}fachada-073.webp`, "Operario lavando una fachada con acceso por cuerdas", "Lavado de fachada", "Limpieza de superficies exteriores sin andamios."),
-      photo(`${FACHADAS}fachada-018.webp`, "Operario realizando mantenimiento sobre la fachada de un edificio", "Mantenimiento de fachada", "Intervención vertical controlada."),
-      photo(`${FACHADAS}fachada-144.webp`, "Trabajo de mantenimiento sobre fachada con cuerdas", "Trabajo en frente elevado", "Desarrollo ordenado de tareas en altura."),
-      photo("assets/proyectos/proyecto-fachada.png", "Mantenimiento de fachada y estructura exterior", "Conservación de superficies", "Limpieza y conservación de superficies exteriores."),
+      photo(FACHADAS + "fachada-004.webp", "Operario descendiendo con cuerdas por el costado de un edificio", "Descenso por fachada", "Acceso por cuerdas sin andamios."),
+      photo(FACHADAS + "fachada-006.webp", "Operario con casco trabajando suspendido en la fachada de un edificio", "Lavado en altura", "Intervención vertical controlada."),
+      photo(FACHADAS + "fachada-007.webp", "Operario suspendido junto al borde superior de una fachada", "Revisión de fachada", "Inspección previa a la limpieza."),
+      photo(FACHADAS + "fachada-008.webp", "Operario con arnés y cuerdas en el borde de un edificio", "Trabajo en borde de edificio", "Doble línea de anclaje."),
+      photo(FACHADAS + "fachada-027.webp", "Operarios con casco verde trabajando en el vacío de un centro comercial", "Patio de centro comercial", "Limpieza en vacíos y patios interiores."),
+      photo(FACHADAS + "fachada-030.webp", "Operario suspendido con cuerdas en un patio interior", "Limpieza en vacíos", "Acceso a zonas sin plataforma."),
+      photo(FACHADAS + "fachada-034.webp", "Operarios trabajando en altura dentro de un patio de edificio", "Mantenimiento interior", "Trabajo coordinado en equipo."),
+      photo(FACHADAS + "fachada-123.webp", "Operarios trabajando en la fachada de un centro comercial en horario nocturno", "Fachada nocturna", "Intervención fuera de horario comercial."),
+      photo(FACHADAS + "fachada-222.webp", "Operario limpiando una fachada de vidrio curva", "Limpieza de vidrio", "Fachadas de vidrio y muro cortina."),
+      photo(FACHADAS + "fachada-230.webp", "Operario sobre cuerdas limpiando vidrio en un edificio", "Fachada de vidrio", "Acabado limpio en superficies de vidrio."),
+      photo(FACHADAS + "fachada-237.webp", "Operarios en la fachada de vidrio de un edificio", "Edificio con vidrio", "Cobertura de grandes superficies."),
+      photo(FACHADAS + "fachada-018.webp", "Vista desde arriba de un operario suspendido sobre la calle", "Mantenimiento de fachada", "Intervención vertical en edificio."),
     ],
   },
   pintura: {
     summary: "Pintura y renovación de fachadas y estructuras con acabados duraderos.",
     items: [
-      photo(`${FACHADAS}fachada-095.webp`, "Trabajo de pintura sobre una fachada", "Pintura de fachada", "Renovación de fachadas con acceso controlado."),
-      photo(`${FACHADAS}fachada-256.webp`, "Intervención de pintura sobre estructura exterior", "Pintura exterior", "Preparación de superficie y aplicación."),
-      photo(`${FACHADAS}fachada-340.webp`, "Fachada pintada terminada", "Acabado final", "Resultado visible en edificios y comercios."),
-      photo("assets/proyectos/proyecto-estructura.png", "Pintura de estructura en altura", "Estructuras", "Pintura en estructuras de difícil acceso."),
+      photo(FACHADAS + "fachada-145.webp", "Operarios con cuerdas pintando un muro blanco", "Pintura de muro", "Preparación y aplicación en altura."),
+      photo(FACHADAS + "fachada-148.webp", "Operario aplicando pintura sobre un muro exterior", "Pintura en altura", "Aplicación pareja en superficies altas."),
+      photo(FACHADAS + "fachada-150.webp", "Operario suspendido renovando un muro blanco", "Renovación de muro", "Renovación de fachadas."),
+      photo(FACHADAS + "fachada-153.webp", "Operarios pintando un muro con tarro de pintura roja", "Trabajo con cuerdas", "Equipo y materiales en altura."),
+      photo(FACHADAS + "fachada-156.webp", "Operario terminando el acabado de un muro exterior", "Acabado en muro", "Cuidado del detalle."),
+      photo(FACHADAS + "fachada-165.webp", "Operarios pintando una marca sobre una fachada", "Pintura de logotipo", "Pintura de gráficos en fachada."),
+      photo(FACHADAS + "fachada-168.webp", "Muro blanco pintado con equipo de acceso en altura", "Muro con canasta", "Equipos de acceso para grandes superficies."),
+      photo(FACHADAS + "fachada-245.webp", "Fachada con acabado verde y blanco y operario en altura", "Acabado verde y blanco", "Acabados duraderos."),
+      photo(FACHADAS + "fachada-209.webp", "Fachada de vidrio verde curva terminada", "Fachada terminada", "Resultado final de la intervención."),
+      photo(FACHADAS + "fachada-215.webp", "Fachada curva de edificio con acabado limpio", "Fachada curva", "Acabado uniforme."),
     ],
   },
   cupulas: {
     summary: "Limpieza y mantenimiento de cúpulas y cubiertas de difícil acceso.",
     items: [
-      photo(`${FACHADAS}fachada-188.webp`, "Operario realizando mantenimiento en la parte alta de una estructura", "Limpieza de cúpula", "Mantenimiento de zonas elevadas."),
-      photo(`${FACHADAS}fachada-312.webp`, "Trabajo de mantenimiento en cubierta con acceso por cuerdas", "Mantenimiento de cubierta", "Intervención con acceso especializado."),
+      photo(FACHADAS + "fachada-017.webp", "Claraboya piramidal de vidrio sobre una cubierta", "Claraboya piramidal", "Limpieza de vidrio en cubierta."),
+      photo(FACHADAS + "fachada-095.webp", "Cúpula de vidrio con marcos rojos", "Cúpula de vidrio", "Mantenimiento de cúpulas."),
+      photo(FACHADAS + "fachada-096.webp", "Detalle de cúpula de vidrio con estructura roja", "Marcos y vidrios", "Limpieza de marcos y vidrios."),
+      photo(FACHADAS + "fachada-100.webp", "Cúpula de vidrio sobre cubierta de edificio", "Cúpula en cubierta", "Acceso a zonas altas."),
+      photo(FACHADAS + "fachada-101.webp", "Claraboyas de vidrio con marcos rojos", "Claraboya de vidrio", "Limpieza de vidrios de difícil acceso."),
+      photo(FACHADAS + "fachada-107.webp", "Cúpula arqueada de vidrio sobre un edificio", "Cúpula arqueada", "Mantenimiento de estructuras curvas."),
+      photo(FACHADAS + "fachada-112.webp", "Operario sobre una cúpula de vidrio", "Trabajo sobre vidrio", "Intervención segura en cubierta."),
+      photo(FACHADAS + "fachada-197.webp", "Cubierta metálica limpia", "Cubierta metálica", "Lavado de cubiertas."),
+      photo(FACHADAS + "fachada-293.webp", "Operario limpiando una cubierta con cepillo", "Limpieza de cubierta", "Limpieza manual de superficies."),
+      photo(FACHADAS + "fachada-201.webp", "Operario en la estructura metálica de una cubierta", "Estructura de cubierta", "Trabajo en cerchas y estructuras."),
     ],
   },
   decoracion: {
     summary: "Decoración navideña y corporativa: iluminación, estructuras y motivos instalados en altura.",
     items: [
-      photo(`${ELECTRICOS}electrico-101.webp`, "Montaje de iluminación con acceso en altura", "Montaje de iluminación", "Instalación segura de luminarias."),
-      photo("assets/proyectos/navidad-centros-comerciales.svg", "Imagen de referencia de decoración para centros comerciales", "Centros comerciales", "Imagen de referencia."),
-      photo("assets/proyectos/navidad-arboles.svg", "Imagen de referencia de árboles navideños", "Árboles navideños", "Imagen de referencia."),
+      photo(ELECTRICOS + "electrico-003.webp", "Salón con cortinas de luces blancas colgantes sobre las mesas", "Salón iluminado", "Decoración corporativa y de eventos."),
+      photo(ELECTRICOS + "electrico-004.webp", "Columnas forradas con cadenas de luces en un patio", "Columnas iluminadas", "Iluminación de columnas."),
+      photo(ELECTRICOS + "electrico-006.webp", "Aro de luces con cortinas colgantes en un salón", "Aros de luces", "Estructuras luminosas suspendidas."),
+      photo(ELECTRICOS + "electrico-008.webp", "Esferas y cortinas de luces en un salón de eventos", "Salón de eventos", "Ambientación de espacios corporativos."),
+      photo(ELECTRICOS + "electrico-025.webp", "Estrella luminosa armada con luces cálidas", "Estrella luminosa", "Motivos navideños de gran formato."),
+      photo(ELECTRICOS + "electrico-029.webp", "Operario preparando cortinas de luces para instalar", "Preparación de luces", "Armado previo al montaje."),
+      photo(ELECTRICOS + "electrico-034.webp", "Técnico armando una estructura de luces en bodega", "Elaboración de motivos", "Fabricación de estructuras navideñas."),
+      photo(ELECTRICOS + "electrico-038.webp", "Operarios armando un árbol de luces", "Árbol de luces", "Árboles navideños de gran formato."),
+      photo(ELECTRICOS + "electrico-040.webp", "Manguera de luces cálidas desenrollada para montaje", "Manguera luminosa", "Material para iluminación decorativa."),
+      photo(FACHADAS + "fachada-044.webp", "Cadena de luces colgando por una fachada interior mientras un operario trabaja", "Luces en fachada", "Instalación de luces en altura."),
+      photo(FACHADAS + "fachada-301.webp", "Valla publicitaria con motivos navideños iluminada de noche", "Valla navideña iluminada", "Iluminación de vallas y rótulos."),
+      photo(FACHADAS + "fachada-312.webp", "Rollo de manguera de luces encendido", "Manguera luminosa", "Pruebas de iluminación previas al montaje."),
     ],
   },
 };
+
+const INITIAL_VISIBLE = 6;
 
 const projectButtons = Array.from(document.querySelectorAll("[data-project-filter]"));
 const projectGrid = document.querySelector("[data-project-grid]");
@@ -112,12 +145,18 @@ const lightboxClose = document.querySelector("[data-lightbox-close]");
 let activeProjectList = [];
 let activeProjectIndex = 0;
 let lightboxTrigger = null;
+let currentCategory = "fachadas";
 
-const renderProjects = (categoryKey) => {
+const projectMore = document.querySelector("[data-project-more]");
+let visibleCount = INITIAL_VISIBLE;
+
+const renderProjects = (categoryKey, keepCount) => {
   const category = projectCategories[categoryKey];
   if (!category || !projectGrid || !projectSummary) return;
 
-  activeProjectList = category.items;
+  if (!keepCount) visibleCount = INITIAL_VISIBLE;
+  currentCategory = categoryKey;
+  activeProjectList = category.items.slice(0, visibleCount);
   activeProjectIndex = 0;
   projectSummary.textContent = category.summary;
   projectGrid.replaceChildren();
@@ -128,7 +167,7 @@ const renderProjects = (categoryKey) => {
     button.setAttribute("aria-selected", String(isActive));
   });
 
-  category.items.forEach((item, index) => {
+  activeProjectList.forEach((item, index) => {
     const card = document.createElement("article");
     card.className = "project-card";
 
@@ -160,7 +199,14 @@ const renderProjects = (categoryKey) => {
     card.appendChild(trigger);
     projectGrid.appendChild(card);
   });
+
+  if (projectMore) projectMore.hidden = category.items.length <= visibleCount;
 };
+
+projectMore?.addEventListener("click", () => {
+  visibleCount = Math.min(projectCategories[currentCategory].items.length, visibleCount + 6);
+  renderProjects(currentCategory, true);
+});
 
 projectButtons.forEach((button) => {
   button.addEventListener("click", () => renderProjects(button.dataset.projectFilter));
