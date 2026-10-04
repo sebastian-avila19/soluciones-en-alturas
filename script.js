@@ -1,4 +1,4 @@
-const WHATSAPP_NUMBER = "573336449110";
+const WHATSAPP_NUMBER = "573163851310";
 // Analítica: reemplazar por el ID real de GA4 (formato G-XXXXXXXXXX). Mientras diga [COMPLETAR] no se carga nada.
 const GA4_ID = "[COMPLETAR]";
 
@@ -54,16 +54,38 @@ if (header) {
   window.addEventListener("scroll", updateHeader, { passive: true });
 }
 
+function actualizarMenuPrincipal(abierto) {
+  const estaAbierto = Boolean(abierto && siteNav);
+
+  siteNav?.classList.toggle("is-open", estaAbierto);
+  menuToggle?.setAttribute("aria-expanded", String(estaAbierto));
+  menuToggle?.setAttribute(
+    "aria-label",
+    estaAbierto ? "Cerrar menú principal" : "Abrir menú principal"
+  );
+}
+
+// Sincronizar el estado inicial.
+actualizarMenuPrincipal(siteNav?.classList.contains("is-open"));
+
 menuToggle?.addEventListener("click", () => {
-  const isOpen = siteNav?.classList.toggle("is-open");
-  menuToggle.setAttribute("aria-expanded", String(Boolean(isOpen)));
+  actualizarMenuPrincipal(!siteNav?.classList.contains("is-open"));
 });
 
 siteNav?.querySelectorAll("a").forEach((link) => {
   link.addEventListener("click", () => {
-    siteNav.classList.remove("is-open");
-    menuToggle?.setAttribute("aria-expanded", "false");
+    actualizarMenuPrincipal(false);
   });
+});
+
+document.addEventListener("keydown", (evento) => {
+  if (
+    evento.key === "Escape" &&
+    siteNav?.classList.contains("is-open")
+  ) {
+    actualizarMenuPrincipal(false);
+    menuToggle?.focus();
+  }
 });
 
 /* ---------- Galería de proyectos ---------- */
@@ -166,10 +188,10 @@ const renderProjects = (categoryKey, keepCount) => {
     trigger.type = "button";
     trigger.setAttribute("aria-label", `Ampliar imagen: ${item.title}`);
 
-    const frame = document.createElement("div");
+     const frame = document.createElement("div");
     frame.className = "media-frame";
     const img = document.createElement("img");
-    const thumb = item.src.replace(/\/([^/]+)$/, "/thumbs/$1");
+    const thumb = "assets/galeria/thumbs/" + item.src.split("/").pop();
     img.src = thumb;
     img.srcset = `${thumb} 400w, ${item.src} 900w`;
     img.sizes = "(min-width:1024px) 25vw, (min-width:600px) 50vw, 100vw";
@@ -194,7 +216,14 @@ const renderProjects = (categoryKey, keepCount) => {
     projectGrid.appendChild(card);
   });
 
-  if (projectMore) projectMore.hidden = category.items.length <= visibleCount;
+if (projectMore) {
+  const hayMasFotos = category.items.length > visibleCount;
+  const seAmplioGaleria = visibleCount > INITIAL_VISIBLE;
+
+  projectMore.hidden = !hayMasFotos;
+  projectMore.setAttribute("aria-expanded", String(seAmplioGaleria));
+  projectMore.setAttribute("aria-controls", "project-panel");
+}
 };
 
 projectMore?.addEventListener("click", () => {
@@ -562,3 +591,128 @@ if ("IntersectionObserver" in window && !window.matchMedia("(prefers-reduced-mot
     if (option) select.value = option.value;
   }
 }
+/* Navidad: ampliar fotos sin alterar la galería de proyectos */
+;(() => {
+  function iniciarGaleriaNavidad() {
+    const fotos = document.querySelectorAll(
+      "#navidad .holiday-gallery .media-frame img"
+    );
+
+    if (!fotos.length || document.getElementById("sea-holiday-dialog")) {
+      return;
+    }
+
+    const ventana = document.createElement("dialog");
+
+    if (typeof ventana.showModal !== "function") {
+      return;
+    }
+
+    ventana.id = "sea-holiday-dialog";
+    ventana.setAttribute("aria-label", "Imagen navideña ampliada");
+
+    const cerrar = document.createElement("button");
+    cerrar.type = "button";
+    cerrar.className = "sea-holiday-close";
+    cerrar.textContent = "×";
+    cerrar.setAttribute("aria-label", "Cerrar imagen");
+
+    const imagenGrande = document.createElement("img");
+    imagenGrande.className = "sea-holiday-large";
+    imagenGrande.decoding = "async";
+
+    ventana.append(cerrar, imagenGrande);
+    document.body.append(ventana);
+
+    let botonOrigen = null;
+    let overflowHtmlAnterior = "";
+    let overflowBodyAnterior = "";
+
+    fotos.forEach((foto) => {
+      if (foto.closest("button, a")) {
+        return;
+      }
+
+      const boton = document.createElement("button");
+      boton.type = "button";
+      boton.className = "sea-holiday-trigger";
+      boton.setAttribute(
+        "aria-label",
+        `Ampliar imagen: ${foto.alt || "Decoración navideña"}`
+      );
+      boton.setAttribute("aria-haspopup", "dialog");
+      boton.setAttribute("aria-controls", ventana.id);
+
+      foto.before(boton);
+      boton.append(foto);
+
+      boton.addEventListener("click", () => {
+        if (ventana.open) {
+          return;
+        }
+
+        const original = foto.dataset.full;
+
+        imagenGrande.srcset = original
+          ? ""
+          : (foto.getAttribute("srcset") || "");
+
+        imagenGrande.sizes = "90vw";
+        imagenGrande.src =
+          original || foto.getAttribute("src") || foto.currentSrc;
+        imagenGrande.alt = foto.alt || "Decoración navideña";
+
+        botonOrigen = boton;
+        overflowHtmlAnterior = document.documentElement.style.overflow;
+        overflowBodyAnterior = document.body.style.overflow;
+
+        ventana.showModal();
+
+        document.documentElement.style.overflow = "hidden";
+        document.body.style.overflow = "hidden";
+
+        cerrar.focus();
+      });
+    });
+
+    cerrar.addEventListener("click", () => {
+      ventana.close();
+    });
+
+    ventana.addEventListener("click", (evento) => {
+      if (evento.target !== ventana) {
+        return;
+      }
+
+      const limites = ventana.getBoundingClientRect();
+
+      if (
+        evento.clientX < limites.left ||
+        evento.clientX > limites.right ||
+        evento.clientY < limites.top ||
+        evento.clientY > limites.bottom
+      ) {
+        ventana.close();
+      }
+    });
+
+    ventana.addEventListener("close", () => {
+      document.documentElement.style.overflow = overflowHtmlAnterior;
+      document.body.style.overflow = overflowBodyAnterior;
+
+      if (botonOrigen) {
+        botonOrigen.focus({ preventScroll: true });
+      }
+
+      botonOrigen = null;
+    });
+  }
+
+  if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", iniciarGaleriaNavidad, {
+      once: true
+    });
+  } else {
+    iniciarGaleriaNavidad();
+  }
+})();
