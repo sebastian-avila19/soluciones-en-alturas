@@ -9,6 +9,9 @@
       content="S.E.A. · Soluciones en Alturas, Bogotá: lavado de fachadas, pintura y mantenimiento de fachadas, limpieza de cúpulas y decoración navideña para centros comerciales y edificios, con acceso por cuerdas."
     />
     <meta name="theme-color" content="#0a0b0d" />
+    <meta name="keywords" content="lavado de fachadas Bogotá, limpieza de cúpulas, pintura de fachadas, decoración navideña centros comerciales, trabajo en alturas Bogotá" />
+    <link rel="manifest" href="manifest.webmanifest" />
+    <link rel="apple-touch-icon" href="assets/icon-192.png" />
     <meta name="robots" content="index, follow" />
     <meta property="og:title" content="Lavado de fachadas, pintura, limpieza de cúpulas y decoración navideña en Bogotá | S.E.A." />
     <meta
@@ -17,7 +20,9 @@
     />
     <meta property="og:type" content="website" />
     <meta property="og:url" content="https://sebastian-avila19.github.io/soluciones-en-alturas/" />
-    <meta property="og:image" content="https://sebastian-avila19.github.io/soluciones-en-alturas/assets/logo.png" />
+    <meta property="og:image" content="https://sebastian-avila19.github.io/soluciones-en-alturas/assets/og-image.jpg" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
     <meta property="og:locale" content="es_CO" />
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:title" content="Fachadas, cúpulas y decoración navideña en Bogotá | S.E.A." />
@@ -25,18 +30,21 @@
       name="twitter:description"
       content="Lavado, pintura y mantenimiento de fachadas, limpieza de cúpulas y decoración navideña con acceso por cuerdas."
     />
-    <meta name="twitter:image" content="https://sebastian-avila19.github.io/soluciones-en-alturas/assets/logo.png" />
+    <meta name="twitter:image" content="https://sebastian-avila19.github.io/soluciones-en-alturas/assets/og-image.jpg" />
     <!-- CANONICAL: URL actual de publicación (GitHub Pages). Cuando el dominio propio esté activo,
          cambiar aquí, en og:url, og:image, twitter:image, el JSON-LD, sitemap.xml y robots.txt. -->
     <link rel="canonical" href="https://sebastian-avila19.github.io/soluciones-en-alturas/" />
-    <link rel="icon" type="image/png" href="assets/logo.png" />
+    <link rel="icon" type="image/png" href="assets/icon-192.png" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
       href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Sora:wght@500;600;700;800&display=swap"
-      rel="stylesheet"
+      rel="stylesheet" media="print" onload="this.media='all'"
     />
     <link rel="preload" as="image" href="assets/galeria/fachadas-pintura/fachada-018.webp" />
+    <noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Sora:wght@500;600;700;800&display=swap" /></noscript>
+    <link rel="preload" as="style" href="styles.css" />
+    <link rel="preload" as="style" href="overrides.css" />
     <link rel="stylesheet" href="styles.css" />
     <link rel="stylesheet" href="overrides.css" />
     <script src="script.js" defer></script>
@@ -83,7 +91,7 @@
     <header class="site-header" data-header>
       <div class="container nav-shell">
         <a class="brand" href="#inicio" aria-label="Ir al inicio de S.E.A. Soluciones en Alturas">
-          <img src="assets/logo-transparent.png" alt="Logo S.E.A. Soluciones en Alturas" width="112" height="112" />
+          <img src="assets/logo-transparent.webp" alt="Logo S.E.A. Soluciones en Alturas" width="112" height="113" />
         </a>
 
         <button
@@ -99,13 +107,12 @@
         </button>
 
         <nav id="site-nav" class="site-nav" aria-label="Navegación principal">
-          <a href="#inicio">Inicio</a>
           <a href="#servicios">Servicios</a>
-          <a href="#metodo">Cómo trabajamos</a>
+          <a href="#metodo">Seguridad</a>
           <a href="#proyectos">Proyectos</a>
           <a href="#navidad">Navidad</a>
-          <a href="#nosotros">Nosotros</a>
           <a href="#preguntas">Preguntas</a>
+          <a href="#contacto">Contacto</a>
           <a class="nav-button" href="#contacto-formulario">Solicitar cotización</a>
         </nav>
       </div>
@@ -117,11 +124,8 @@
       <section id="inicio" class="hero-section hero-photo section-shell">
         <div class="container hero-content">
           <p class="eyebrow">S.E.A. · Soluciones en Alturas · Bogotá D.C.</p>
-          <h1>Mantenimiento, limpieza y decoración de fachadas y cúpulas en Bogotá, con acceso por cuerdas</h1>
-          <p class="hero-lead">
-            Lavado, pintura y mantenimiento de fachadas, limpieza de cúpulas y decoración navideña para edificios, centros
-            comerciales y espacios corporativos. Ejecutamos con personal certificado y protocolos de seguridad.
-          </p>
+          <h1>Lavado, pintura y mantenimiento de fachadas, limpieza de cúpulas y decoración navideña en Bogotá</h1>
+          <p class="hero-lead">Acceso por cuerdas, con protocolos de seguridad y atención cercana.</p>
 
           <div class="hero-actions">
             <a class="button button-primary" href="#contacto-formulario">Solicitar cotización</a>
@@ -134,10 +138,10 @@
             >
           </div>
 
-          <ul class="hero-metrics" aria-label="Diferenciales de S.E.A.">
-            <li><strong>Acceso por cuerdas</strong><span>Sin andamios pesados ni cierres prolongados.</span></li>
-            <li><strong>Personal certificado</strong><span>Actualizado en seguridad para trabajo en alturas.</span></li>
-            <li><strong>Propuesta clara</strong><span>Alcance, tiempos y valor definidos antes de iniciar.</span></li>
+          <ul class="hero-metrics" aria-label="Puntos de confianza de S.E.A.">
+            <li><strong>Seguridad</strong><span>Protocolos y equipos certificados en cada trabajo.</span></li>
+            <li><strong>Calidad</strong><span>Acabados cuidados y propuesta clara antes de iniciar.</span></li>
+            <li><strong>Compromiso</strong><span>Cumplimos tiempos y acompañamos hasta el cierre.</span></li>
           </ul>
         </div>
       </section>
@@ -163,42 +167,39 @@
               <div class="service-body">
                 <span class="service-icon"><svg class="icon" aria-hidden="true"><use href="#i-sparkles" /></svg></span>
                 <h3>Decoración navideña y corporativa</h3>
-                <p>Diseño, montaje y desmontaje de iluminación, árboles y motivos navideños en altura.</p>
-                <ul class="service-list">
-                  <li>Incluye: diseño, instalación, mantenimiento durante temporada y desmontaje.</li>
-                  <li>Ideal para: centros comerciales, edificios, parques y espacios corporativos.</li>
-                </ul>
+                <p>Diseño, montaje y desmontaje de iluminación, árboles y motivos en altura.</p>
+                <p class="service-label">Qué incluye</p>
+                <ul class="service-list"><li>Diseño y propuesta de la decoración</li><li>Instalación y mantenimiento en temporada</li><li>Desmontaje al finalizar</li></ul>
+                <p class="service-ideal"><strong>Ideal para:</strong> Centros comerciales, edificios, parques y espacios corporativos.</p>
+                <a class="service-link" href="#contacto-formulario" data-service="Decoración navideña y corporativa">Cotizar este servicio →</a>
               </div>
             </article>
-
             <article class="service-card service-card-media">
               <!-- FOTO: operario lavando una fachada con cuerdas. -->
               <img class="service-photo" src="assets/galeria/fachadas-pintura/fachada-073.webp" alt="Operario realizando lavado de fachada con acceso por cuerdas" width="800" height="600" loading="lazy" decoding="async" />
               <div class="service-body">
                 <span class="service-icon"><svg class="icon" aria-hidden="true"><use href="#i-droplets" /></svg></span>
                 <h3>Lavado de fachadas</h3>
-                <p>Limpieza de fachadas, vidrios y superficies exteriores sin andamios.</p>
-                <ul class="service-list">
-                  <li>Incluye: inspección previa, lavado, retiro de residuos y verificación final.</li>
-                  <li>Ideal para: edificios corporativos, conjuntos residenciales y comercios.</li>
-                </ul>
+                <p>Limpieza de fachadas y superficies exteriores sin andamios.</p>
+                <p class="service-label">Qué incluye</p>
+                <ul class="service-list"><li>Inspección previa del estado</li><li>Lavado y retiro de residuos</li><li>Verificación final</li></ul>
+                <p class="service-ideal"><strong>Ideal para:</strong> Edificios corporativos, conjuntos residenciales y comercios.</p>
+                <a class="service-link" href="#contacto-formulario" data-service="Lavado de fachadas">Cotizar este servicio →</a>
               </div>
             </article>
-
             <article class="service-card service-card-media">
               <!-- FOTO: fachada pintada (antes/después si es posible). -->
               <img class="service-photo" src="assets/galeria/fachadas-pintura/fachada-095.webp" alt="Trabajo de pintura y mantenimiento sobre una fachada" width="800" height="600" loading="lazy" decoding="async" />
               <div class="service-body">
                 <span class="service-icon"><svg class="icon" aria-hidden="true"><use href="#i-roller" /></svg></span>
                 <h3>Pintura y mantenimiento de fachadas</h3>
-                <p>Preparación de superficie, reparaciones menores, sellado y pintura exterior duradera.</p>
-                <ul class="service-list">
-                  <li>Incluye: diagnóstico, preparación, aplicación de pintura y remates.</li>
-                  <li>Ideal para: administraciones de propiedad horizontal, empresas y retail.</li>
-                </ul>
+                <p>Preparación, sellado y pintura exterior duradera.</p>
+                <p class="service-label">Qué incluye</p>
+                <ul class="service-list"><li>Diagnóstico y preparación de superficie</li><li>Reparaciones menores y sellado</li><li>Aplicación de pintura y remates</li></ul>
+                <p class="service-ideal"><strong>Ideal para:</strong> Administraciones de propiedad horizontal, empresas y retail.</p>
+                <a class="service-link" href="#contacto-formulario" data-service="Pintura y mantenimiento de fachadas">Cotizar este servicio →</a>
               </div>
             </article>
-
             <article class="service-card service-card-media">
               <!-- FOTO: operario limpiando una cúpula o cubierta en altura. -->
               <img class="service-photo" src="assets/galeria/fachadas-pintura/fachada-188.webp" alt="Operario realizando limpieza y mantenimiento de una cúpula" width="800" height="600" loading="lazy" decoding="async" />
@@ -206,25 +207,11 @@
                 <span class="service-icon"><svg class="icon" aria-hidden="true"><use href="#i-landmark" /></svg></span>
                 <h3>Limpieza de cúpulas</h3>
                 <p>Limpieza y mantenimiento de cúpulas y cubiertas de difícil acceso.</p>
-                <ul class="service-list">
-                  <li>Incluye: limpieza, revisión visual del estado y recomendaciones de mantenimiento.</li>
-                  <li>Ideal para: centros comerciales, edificios institucionales y hoteles.</li>
-                </ul>
+                <p class="service-label">Qué incluye</p>
+                <ul class="service-list"><li>Limpieza de la superficie</li><li>Revisión visual del estado</li><li>Recomendaciones de mantenimiento</li></ul>
+                <p class="service-ideal"><strong>Ideal para:</strong> Centros comerciales, edificios institucionales y hoteles.</p>
+                <a class="service-link" href="#contacto-formulario" data-service="Limpieza de cúpulas">Cotizar este servicio →</a>
               </div>
-            </article>
-          </div>
-
-          <h3 class="subheading">Servicios complementarios</h3>
-          <div class="service-grid service-grid-extra">
-            <article class="service-card">
-              <span class="service-icon"><svg class="icon" aria-hidden="true"><use href="#i-zap" /></svg></span>
-              <h3>Instalaciones eléctricas en altura</h3>
-              <p>Instalación y mantenimiento de iluminación, reflectores y componentes eléctricos en fachadas y cubiertas.</p>
-            </article>
-            <article class="service-card">
-              <span class="service-icon"><svg class="icon" aria-hidden="true"><use href="#i-billboard" /></svg></span>
-              <h3>Montaje de vallas publicitarias</h3>
-              <p>Instalación y mantenimiento de vallas y elementos publicitarios en altura.</p>
             </article>
           </div>
         </div>
@@ -284,6 +271,12 @@
               </p>
             </article>
           </div>
+          <h3 class="subheading">Nuestro proceso</h3>
+          <ol class="process-steps">
+            <li><span>1</span><div><h4>Diagnóstico</h4><p>Entendemos el sitio, los accesos y lo que necesitas lograr.</p></div></li>
+            <li><span>2</span><div><h4>Diseño de solución</h4><p>Definimos alcance, equipo, tiempos y valor de forma clara.</p></div></li>
+            <li><span>3</span><div><h4>Ejecución acompañada</h4><p>Trabajamos con protocolos de seguridad y comunicación constante.</p></div></li>
+          </ol>
           <p class="scope-note">Ejecutamos trabajos; no dictamos cursos de capacitación en alturas.</p>
         </div>
       </section>
@@ -300,24 +293,18 @@
 
           <div class="project-filters" role="tablist" aria-label="Categorías de proyectos">
             <button class="filter-chip is-active" type="button" role="tab" aria-selected="true" data-project-filter="fachadas">
-              Lavado y mantenimiento de fachadas
+              Lavado de fachadas
             </button>
             <button class="filter-chip" type="button" role="tab" aria-selected="false" data-project-filter="pintura">
-              Pintura de fachadas
+              Pintura y mantenimiento
             </button>
             <button class="filter-chip" type="button" role="tab" aria-selected="false" data-project-filter="cupulas">
-              Cúpulas y cubiertas
+              Limpieza de cúpulas
             </button>
             <button class="filter-chip" type="button" role="tab" aria-selected="false" data-project-filter="decoracion">
               Decoración navideña
             </button>
-            <button class="filter-chip" type="button" role="tab" aria-selected="false" data-project-filter="electricos">
-              Instalaciones eléctricas
-            </button>
-            <button class="filter-chip" type="button" role="tab" aria-selected="false" data-project-filter="vallas">
-              Vallas publicitarias
-            </button>
-          </div>
+                      </div>
 
           <div class="project-summary" data-project-summary></div>
           <div class="project-grid" data-project-grid role="tabpanel" aria-live="polite"></div>
@@ -340,15 +327,15 @@
               Iluminación, estructuras y motivos navideños con montaje en altura, coordinación operativa y desmontaje al
               finalizar la temporada.
             </p>
+            <p class="holiday-note">Recomendamos contratar con varios meses de anticipación para asegurar fechas.</p>
             <div class="holiday-actions">
               <a
                 class="button button-primary"
                 href="https://wa.me/573336449110?text=Hola%20S.E.A.%2C%20quiero%20cotizar%20un%20proyecto%20de%20decoraci%C3%B3n%20navide%C3%B1a."
                 target="_blank"
                 rel="noopener noreferrer"
-                >Solicitar proyecto navideño</a
+                >Cotizar proyecto navideño</a
               >
-              <a class="button button-ghost button-dark-theme" href="#contacto-formulario">Solicitar cotización</a>
             </div>
           </div>
 
@@ -406,8 +393,8 @@
         </div>
       </section>
 
-      <!-- CASOS DE ESTUDIO: contenido placeholder. Reemplazar cada [COMPLETAR] con datos reales y fotos antes/después. -->
-      <section id="casos" class="section-shell section-light" aria-labelledby="casos-titulo">
+      <!-- CASOS DE ESTUDIO (ocultos): quitar "hidden" cuando existan casos reales. Contenido placeholder. Reemplazar cada [COMPLETAR] con datos reales y fotos antes/después. -->
+      <section id="casos" class="section-shell section-light" aria-labelledby="casos-titulo" hidden>
         <div class="container">
           <div class="section-heading">
             <div>
@@ -471,10 +458,16 @@
         <div class="container">
           <div class="section-heading">
             <div>
-              <p class="eyebrow">Clientes</p>
+              <p class="eyebrow">Clientes y confianza</p>
               <h2 id="testimonios-titulo">Lo que dicen nuestros clientes</h2>
             </div>
           </div>
+          <!-- LOGOS: reemplazar por logos reales de clientes autorizados (WebP/SVG). -->
+          <ul class="client-logos" aria-label="Clientes">
+            <li class="placeholder">[REEMPLAZAR POR LOGO REAL]</li>
+            <li class="placeholder">[REEMPLAZAR POR LOGO REAL]</li>
+            <li class="placeholder">[REEMPLAZAR POR LOGO REAL]</li>
+          </ul>
           <div class="testimonials-track">
             <article class="testimonial-card">
               <p>[REEMPLAZAR POR TESTIMONIO REAL]</p>
@@ -490,43 +483,7 @@
         </div>
       </section>
 
-      <section id="nosotros" class="section-shell about-section section-light" aria-labelledby="nosotros-titulo">
-        <div class="container about-grid">
-          <div class="about-panel">
-            <p class="eyebrow">Quiénes somos</p>
-            <h2 id="nosotros-titulo">Expertos en trabajo seguro y de calidad</h2>
-            <p>
-              En Soluciones en Alturas SAS ejecutamos trabajos en altura con seguridad, eficiencia y calidad: decoración
-              navideña, lavado y pintura de fachadas, limpieza de cúpulas y otros trabajos de difícil acceso en Bogotá D.C.
-            </p>
-            <ul class="about-list">
-              <li>Personal certificado y actualizado en seguridad para trabajo en alturas.</li>
-              <li>Atención comercial cercana, con propuestas claras y tiempos definidos.</li>
-              <li>Compromiso con la igualdad y el respeto: mismas oportunidades y trato justo para mujeres y hombres.</li>
-            </ul>
-          </div>
-
-          <div class="process-panel">
-            <article>
-              <span>01</span>
-              <h3>Diagnóstico</h3>
-              <p>Entendemos el sitio, el acceso, las restricciones y lo que necesitas lograr.</p>
-            </article>
-            <article>
-              <span>02</span>
-              <h3>Propuesta</h3>
-              <p>Definimos alcance, equipo, tiempos y valor de forma clara.</p>
-            </article>
-            <article>
-              <span>03</span>
-              <h3>Ejecución</h3>
-              <p>Trabajamos con protocolos de seguridad y comunicación constante hasta el cierre.</p>
-            </article>
-          </div>
-        </div>
-      </section>
-
-      <section id="preguntas" class="section-shell faq-section" aria-labelledby="preguntas-titulo">
+            <section id="preguntas" class="section-shell faq-section" aria-labelledby="preguntas-titulo">
         <div class="container">
           <div class="section-heading">
             <div>
@@ -625,14 +582,17 @@
               <small class="field-error" data-error-for="correo" role="alert"></small>
             </label>
             <label>
+              Teléfono o WhatsApp
+              <input type="tel" name="telefono" autocomplete="tel" inputmode="tel" required />
+              <small class="field-error" data-error-for="telefono" role="alert"></small>
+            </label>
+            <label>
               Servicio de interés
               <select name="servicio">
                 <option>Decoración navideña y corporativa</option>
                 <option>Lavado de fachadas</option>
                 <option>Pintura y mantenimiento de fachadas</option>
                 <option>Limpieza de cúpulas</option>
-                <option>Instalaciones eléctricas en altura</option>
-                <option>Montaje de vallas publicitarias</option>
                 <option>Otro requerimiento</option>
               </select>
             </label>
@@ -665,15 +625,16 @@
       <div class="container footer-grid">
         <div>
           <a class="brand footer-brand" href="#inicio">
-            <img src="assets/logo-transparent.png" alt="Logo S.E.A. Soluciones en Alturas" width="96" height="96" loading="lazy" />
+            <img src="assets/logo-transparent.webp" alt="Logo S.E.A. Soluciones en Alturas" width="96" height="97" loading="lazy" />
           </a>
-          <p>Lavado, pintura y mantenimiento de fachadas, limpieza de cúpulas y decoración navideña y corporativa en Bogotá D.C.</p>
+          <p>Lavado, pintura y mantenimiento de fachadas, limpieza de cúpulas y decoración navideña y corporativa en Bogotá D.C. Equidad y respeto: mismas oportunidades para mujeres y hombres.</p>
         </div>
         <nav class="footer-nav" aria-label="Navegación del pie de página">
           <a href="#inicio">Inicio</a>
           <a href="#servicios">Servicios</a>
-          <a href="#metodo">Cómo trabajamos</a>
+          <a href="#metodo">Seguridad</a>
           <a href="#proyectos">Proyectos</a>
+          <a href="#navidad">Navidad</a>
           <a href="#preguntas">Preguntas</a>
           <a href="#contacto">Contacto</a>
         </nav>
@@ -734,9 +695,7 @@
           { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Decoración navideña y corporativa" } },
           { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Lavado de fachadas" } },
           { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Pintura y mantenimiento de fachadas" } },
-          { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Limpieza de cúpulas" } },
-          { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Instalaciones eléctricas en altura" } },
-          { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Montaje de vallas publicitarias" } }
+          { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Limpieza de cúpulas" } }
         ]
       }
     </script>

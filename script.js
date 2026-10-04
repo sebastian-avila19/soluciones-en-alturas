@@ -64,7 +64,7 @@ siteNav?.querySelectorAll("a").forEach((link) => {
 // Reemplazar cada "src" por fotos reales (WebP) y ajustar título/alt cuando estén disponibles.
 const photo = (src, alt, title, text) => ({ src, alt, title, text });
 const FACHADAS = "assets/galeria/fachadas-pintura/";
-const ELECTRICOS = "assets/galeria/electricos/";
+const ELECTRICOS = "assets/galeria/electricos/"; // solo fotos de iluminación decorativa
 
 const projectCategories = {
   fachadas: {
@@ -98,24 +98,6 @@ const projectCategories = {
       photo(`${ELECTRICOS}electrico-101.webp`, "Montaje de iluminación con acceso en altura", "Montaje de iluminación", "Instalación segura de luminarias."),
       photo("assets/proyectos/navidad-centros-comerciales.svg", "Imagen de referencia de decoración para centros comerciales", "Centros comerciales", "Imagen de referencia."),
       photo("assets/proyectos/navidad-arboles.svg", "Imagen de referencia de árboles navideños", "Árboles navideños", "Imagen de referencia."),
-    ],
-  },
-  electricos: {
-    summary: "Instalación y mantenimiento de componentes eléctricos en fachadas y cubiertas.",
-    items: [
-      photo(`${ELECTRICOS}electrico-012.webp`, "Mantenimiento con equipos eléctricos", "Mantenimiento eléctrico", "Trabajo técnico en altura."),
-      photo(`${ELECTRICOS}electrico-093.webp`, "Operario realizando instalación eléctrica en altura", "Instalación eléctrica", "Montaje de componentes en altura."),
-      photo(`${ELECTRICOS}electrico-140.webp`, "Intervención eléctrica en espacio técnico", "Revisión técnica", "Instalaciones con acceso restringido."),
-      photo(`${ELECTRICOS}electrico-171.webp`, "Trabajo eléctrico especializado", "Soporte técnico", "Revisión y apoyo en altura."),
-    ],
-  },
-  vallas: {
-    summary: "Montaje y mantenimiento de vallas publicitarias y estructuras en altura.",
-    items: [
-      photo(`${FACHADAS}fachada-278.webp`, "Montaje de valla publicitaria en altura", "Montaje de valla", "Instalación segura en altura."),
-      photo(`${FACHADAS}fachada-221.webp`, "Montaje técnico sobre fachada para valla publicitaria", "Instalación controlada", "Apoyo operativo en frentes visibles."),
-      photo(`${ELECTRICOS}electrico-082.webp`, "Componentes y estructura de una valla", "Ajuste de estructura", "Coordinación de accesorios en altura."),
-      photo(`${ELECTRICOS}electrico-031.webp`, "Montaje de elementos publicitarios", "Proyecto publicitario", "Ejecución en un mismo frente."),
     ],
   },
 };
@@ -300,6 +282,7 @@ const setFeedback = (message, state) => {
 const validators = {
   nombre: (value) => (value.trim().length >= 2 ? "" : "Escribe tu nombre o el de tu empresa."),
   correo: (value) => (/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value.trim()) ? "" : "Escribe un correo válido, por ejemplo nombre@empresa.com."),
+  telefono: (value) => (value.replace(/\D/g, "").length >= 7 ? "" : "Escribe un teléfono válido con al menos 7 dígitos."),
   mensaje: (value) => (value.trim().length >= 10 ? "" : "Cuéntanos brevemente tu proyecto (mínimo 10 caracteres)."),
 };
 
@@ -333,6 +316,7 @@ const buildFormMessage = () => {
     "Hola S.E.A., quiero solicitar una cotización.",
     `Nombre o empresa: ${data.get("nombre")}`,
     `Correo: ${data.get("correo")}`,
+    `Teléfono: ${data.get("telefono")}`,
     `Servicio: ${data.get("servicio")}`,
     `Proyecto: ${data.get("mensaje")}`,
   ].join("\n");
@@ -467,4 +451,42 @@ if (holidayCanvas && !reducedMotion) {
       { threshold: 0.1 },
     ).observe(holidaySection);
   }
+}
+
+
+// Preselecciona el servicio al pulsar "Cotizar este servicio"
+document.querySelectorAll("[data-service]").forEach((link) => {
+  link.addEventListener("click", () => {
+    const select = form?.elements["servicio"];
+    if (!select) return;
+    const option = Array.from(select.options).find((o) => o.value === link.dataset.service || o.textContent.trim() === link.dataset.service);
+    if (option) select.value = option.value;
+  });
+});
+
+// Resalta el enlace activo del menú según la sección visible
+const navLinks = Array.from(document.querySelectorAll("#site-nav a[href^='#']"));
+if ("IntersectionObserver" in window && navLinks.length) {
+  const navObserver = new IntersectionObserver((entries) => {
+    entries.forEach((entry) => {
+      if (!entry.isIntersecting) return;
+      navLinks.forEach((a) => {
+        const on = a.getAttribute("href") === `#${entry.target.id}`;
+        a.classList.toggle("is-active", on);
+        if (on) a.setAttribute("aria-current", "true"); else a.removeAttribute("aria-current");
+      });
+    });
+  }, { rootMargin: "-45% 0px -50% 0px" });
+  navLinks.forEach((a) => { const t = document.querySelector(a.getAttribute("href")); if (t) navObserver.observe(t); });
+}
+
+// Aparición suave al hacer scroll (respeta prefers-reduced-motion)
+if ("IntersectionObserver" in window && !window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
+  const revealObserver = new IntersectionObserver((entries, obs) => {
+    entries.forEach((e) => { if (e.isIntersecting) { e.target.classList.add("is-visible"); obs.unobserve(e.target); } });
+  }, { threshold: 0.12 });
+  document.querySelectorAll(".service-card, .case-card, .process-steps li, .holiday-card").forEach((el) => {
+    el.classList.add("reveal");
+    revealObserver.observe(el);
+  });
 }
