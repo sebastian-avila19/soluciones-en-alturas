@@ -1,0 +1,5 @@
+# Al activar el dominio propio, cambiar la URL del sitemap.
+User-agent: *
+Allow: /
+
+Sitemap: https://sebastian-avila19.github.io/soluciones-en-alturas/sitemap.xml
