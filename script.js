@@ -1,8 +1,44 @@
+const WHATSAPP_NUMBER = "573336449110";
+// Analítica: reemplazar por el ID real de GA4 (formato G-XXXXXXXXXX). Mientras diga [COMPLETAR] no se carga nada.
+const GA4_ID = "[COMPLETAR]";
+
 const header = document.querySelector("[data-header]");
 const menuToggle = document.querySelector(".menu-toggle");
 const siteNav = document.querySelector("#site-nav");
 const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 
+const whatsappUrl = (message) =>
+  `https://wa.me/${WHATSAPP_NUMBER}${message ? `?text=${encodeURIComponent(message)}` : ""}`;
+
+/* ---------- Analítica (GA4 opcional) ---------- */
+const analyticsEnabled = Boolean(GA4_ID) && !GA4_ID.includes("COMPLETAR");
+window.dataLayer = window.dataLayer || [];
+window.gtag = function gtag() {
+  window.dataLayer.push(arguments);
+};
+
+if (analyticsEnabled) {
+  const gaScript = document.createElement("script");
+  gaScript.async = true;
+  gaScript.src = `https://www.googletagmanager.com/gtag/js?id=${GA4_ID}`;
+  document.head.appendChild(gaScript);
+  window.gtag("js", new Date());
+  window.gtag("config", GA4_ID);
+}
+
+const trackEvent = (name, params = {}) => {
+  if (analyticsEnabled) window.gtag("event", name, params);
+};
+
+document.addEventListener("click", (event) => {
+  const link = event.target instanceof Element ? event.target.closest('a[href^="https://wa.me/"]') : null;
+  if (!link) return;
+  trackEvent("whatsapp_click", {
+    location: link.hasAttribute("data-wa-float") ? "floating_button" : "page_link",
+  });
+});
+
+/* ---------- Encabezado y menú ---------- */
 if (header) {
   const updateHeader = () => {
     header.classList.toggle("is-scrolled", window.scrollY > 18);
@@ -24,65 +60,62 @@ siteNav?.querySelectorAll("a").forEach((link) => {
   });
 });
 
+/* ---------- Galería de proyectos ---------- */
+// Reemplazar cada "src" por fotos reales (WebP) y ajustar título/alt cuando estén disponibles.
+const photo = (src, alt, title, text) => ({ src, alt, title, text });
+const FACHADAS = "assets/galeria/fachadas-pintura/";
+const ELECTRICOS = "assets/galeria/electricos/";
+
 const projectCategories = {
-  "trabajos-alturas": {
-    summary:
-      "Selección visual de intervenciones con acceso controlado, planeación y aseguramiento para maniobras en altura.",
+  fachadas: {
+    summary: "Lavado, limpieza y mantenimiento de fachadas con acceso por cuerdas.",
     items: [
-      { src: "assets/proyectos/proyecto-trabajo-altura.png", alt: "Trabajo técnico en alturas con acceso controlado", title: "Aseguramiento inicial", text: "Planeación visual para maniobras seguras en altura." },
-      { src: "assets/galeria/fachadas-pintura/fachada-018.webp", alt: "Operario realizando intervención en altura sobre estructura", title: "Intervención vertical", text: "Trabajo real del repositorio para montaje y acceso seguro." },
-      { src: "assets/galeria/fachadas-pintura/fachada-144.webp", alt: "Trabajo especializado sobre fachada con acceso por cuerdas", title: "Control de desplazamiento", text: "Desarrollo ordenado de tareas en fachada y frentes elevados." },
-      { src: "assets/galeria/electricos/electrico-041.webp", alt: "Trabajo técnico con aseguramiento y apoyo eléctrico en altura", title: "Conexión y revisión", text: "Acompañamiento técnico en escenarios de mantenimiento." },
-    ],
-  },
-  "mantenimiento-fachadas": {
-    summary:
-      "Muestra de proyectos de mantenimiento, limpieza y conservación de fachadas, cubiertas y cúpulas en altura.",
-    items: [
-      { src: "assets/proyectos/proyecto-fachada.png", alt: "Mantenimiento de fachada y estructura exterior", title: "Mantenimiento de fachadas", text: "Limpieza y conservación de superficies exteriores en altura." },
-      { src: "assets/galeria/fachadas-pintura/fachada-073.webp", alt: "Trabajo real de mantenimiento sobre fachada", title: "Limpieza de superficies", text: "Atención de fachadas, cubiertas y áreas expuestas." },
-      { src: "assets/galeria/fachadas-pintura/fachada-188.webp", alt: "Operario ejecutando mantenimiento en parte alta de estructura", title: "Conservación de cúpulas", text: "Mantenimiento y limpieza de cúpulas y zonas elevadas." },
-      { src: "assets/galeria/fachadas-pintura/fachada-312.webp", alt: "Trabajo de mantenimiento en cubierta con operación vertical", title: "Intervención en cubiertas", text: "Mantenimiento exterior con acceso especializado en altura." },
+      photo(`${FACHADAS}fachada-073.webp`, "Operario lavando una fachada con acceso por cuerdas", "Lavado de fachada", "Limpieza de superficies exteriores sin andamios."),
+      photo(`${FACHADAS}fachada-018.webp`, "Operario realizando mantenimiento sobre la fachada de un edificio", "Mantenimiento de fachada", "Intervención vertical controlada."),
+      photo(`${FACHADAS}fachada-144.webp`, "Trabajo de mantenimiento sobre fachada con cuerdas", "Trabajo en frente elevado", "Desarrollo ordenado de tareas en altura."),
+      photo("assets/proyectos/proyecto-fachada.png", "Mantenimiento de fachada y estructura exterior", "Conservación de superficies", "Limpieza y conservación de superficies exteriores."),
     ],
   },
   pintura: {
-    summary:
-      "Galería de proyectos de pintura de fachadas y estructuras, con acabados prolijos y acceso seguro en altura.",
+    summary: "Pintura y renovación de fachadas y estructuras con acabados duraderos.",
     items: [
-      { src: "assets/proyectos/proyecto-estructura.png", alt: "Pintura de estructura en altura", title: "Pintura de estructuras", text: "Acabados de calidad en estructuras de difícil acceso." },
-      { src: "assets/galeria/fachadas-pintura/fachada-095.webp", alt: "Trabajo de pintura sobre fachada", title: "Pintura de fachadas", text: "Renovación estética de fachadas con acceso controlado." },
-      { src: "assets/galeria/fachadas-pintura/fachada-256.webp", alt: "Intervención de pintura sobre estructura exterior", title: "Proyecto de pintura", text: "Presentación impecable para espacios corporativos y comerciales." },
-      { src: "assets/galeria/fachadas-pintura/fachada-340.webp", alt: "Proyecto real de fachada pintada", title: "Acabado final", text: "Resultados visibles para centros comerciales y corporativos." },
+      photo(`${FACHADAS}fachada-095.webp`, "Trabajo de pintura sobre una fachada", "Pintura de fachada", "Renovación de fachadas con acceso controlado."),
+      photo(`${FACHADAS}fachada-256.webp`, "Intervención de pintura sobre estructura exterior", "Pintura exterior", "Preparación de superficie y aplicación."),
+      photo(`${FACHADAS}fachada-340.webp`, "Fachada pintada terminada", "Acabado final", "Resultado visible en edificios y comercios."),
+      photo("assets/proyectos/proyecto-estructura.png", "Pintura de estructura en altura", "Estructuras", "Pintura en estructuras de difícil acceso."),
     ],
   },
-  electricos: {
-    summary:
-      "Curaduría de proyectos de instalación y mantenimiento eléctrico ejecutados con acceso especializado en altura.",
+  cupulas: {
+    summary: "Limpieza y mantenimiento de cúpulas y cubiertas de difícil acceso.",
     items: [
-      { src: "assets/galeria/electricos/electrico-012.webp", alt: "Trabajo de mantenimiento con equipos eléctricos", title: "Mantenimiento eléctrico", text: "Operación real con equipos del archivo fotográfico." },
-      { src: "assets/galeria/electricos/electrico-093.webp", alt: "Operario desarrollando instalación eléctrica en altura", title: "Instalación especializada", text: "Montaje y revisión de componentes eléctricos en altura." },
-      { src: "assets/galeria/electricos/electrico-140.webp", alt: "Intervención eléctrica en espacio técnico", title: "Revisión técnica", text: "Acompañamiento para instalaciones con restricciones de acceso." },
-      { src: "assets/galeria/electricos/electrico-171.webp", alt: "Trabajo eléctrico especializado con componentes técnicos", title: "Supervisión eléctrica", text: "Revisión y apoyo técnico para instalaciones en altura." },
-    ],
-  },
-  "montajes-vallas": {
-    summary:
-      "Selección visual para montaje de vallas publicitarias y estructuras que requieren precisión y presentación de marca.",
-    items: [
-      { src: "assets/galeria/fachadas-pintura/fachada-278.webp", alt: "Montaje de valla publicitaria en altura", title: "Montaje de vallas", text: "Instalación segura de elementos publicitarios en altura." },
-      { src: "assets/galeria/fachadas-pintura/fachada-221.webp", alt: "Montaje técnico sobre fachada para valla publicitaria", title: "Instalación controlada", text: "Apoyo operativo en intervenciones de alto impacto visual." },
-      { src: "assets/galeria/electricos/electrico-082.webp", alt: "Trabajo real con componentes técnicos y estructura de valla", title: "Ajuste fino", text: "Coordinación para estructuras y accesorios en altura." },
-      { src: "assets/galeria/electricos/electrico-031.webp", alt: "Intervención técnica para montaje de elementos publicitarios", title: "Proyecto visible", text: "Marca, seguridad y ejecución en un mismo frente." },
+      photo(`${FACHADAS}fachada-188.webp`, "Operario realizando mantenimiento en la parte alta de una estructura", "Limpieza de cúpula", "Mantenimiento de zonas elevadas."),
+      photo(`${FACHADAS}fachada-312.webp`, "Trabajo de mantenimiento en cubierta con acceso por cuerdas", "Mantenimiento de cubierta", "Intervención con acceso especializado."),
     ],
   },
   decoracion: {
-    summary:
-      "Proyectos visuales, decorativos y de iluminación navideña que combinan montaje en altura con puesta en escena corporativa.",
+    summary: "Decoración navideña y corporativa: iluminación, estructuras y motivos instalados en altura.",
     items: [
-      { src: "assets/proyectos/proyecto-iluminacion.png", alt: "Proyecto de iluminación decorativa navideña y montaje especial", title: "Iluminación navideña", text: "Trabajo premium para experiencias memorables." },
-      { src: "assets/galeria/electricos/electrico-101.webp", alt: "Intervención real de iluminación y soporte técnico", title: "Montaje de iluminación", text: "Integración de estética, seguridad y operación." },
-      { src: "assets/proyectos/navidad-centros-comerciales.svg", alt: "Decoración navideña en centro comercial", title: "Decoración corporativa", text: "Soluciones visibles para centros comerciales y corporativos." },
-      { src: "assets/proyectos/navidad-arboles.svg", alt: "Árboles y estructuras navideñas", title: "Estructuras navideñas", text: "Diseño e instalación de motivos y árboles navideños." },
+      photo(`${ELECTRICOS}electrico-101.webp`, "Montaje de iluminación con acceso en altura", "Montaje de iluminación", "Instalación segura de luminarias."),
+      photo("assets/proyectos/navidad-centros-comerciales.svg", "Imagen de referencia de decoración para centros comerciales", "Centros comerciales", "Imagen de referencia."),
+      photo("assets/proyectos/navidad-arboles.svg", "Imagen de referencia de árboles navideños", "Árboles navideños", "Imagen de referencia."),
+    ],
+  },
+  electricos: {
+    summary: "Instalación y mantenimiento de componentes eléctricos en fachadas y cubiertas.",
+    items: [
+      photo(`${ELECTRICOS}electrico-012.webp`, "Mantenimiento con equipos eléctricos", "Mantenimiento eléctrico", "Trabajo técnico en altura."),
+      photo(`${ELECTRICOS}electrico-093.webp`, "Operario realizando instalación eléctrica en altura", "Instalación eléctrica", "Montaje de componentes en altura."),
+      photo(`${ELECTRICOS}electrico-140.webp`, "Intervención eléctrica en espacio técnico", "Revisión técnica", "Instalaciones con acceso restringido."),
+      photo(`${ELECTRICOS}electrico-171.webp`, "Trabajo eléctrico especializado", "Soporte técnico", "Revisión y apoyo en altura."),
+    ],
+  },
+  vallas: {
+    summary: "Montaje y mantenimiento de vallas publicitarias y estructuras en altura.",
+    items: [
+      photo(`${FACHADAS}fachada-278.webp`, "Montaje de valla publicitaria en altura", "Montaje de valla", "Instalación segura en altura."),
+      photo(`${FACHADAS}fachada-221.webp`, "Montaje técnico sobre fachada para valla publicitaria", "Instalación controlada", "Apoyo operativo en frentes visibles."),
+      photo(`${ELECTRICOS}electrico-082.webp`, "Componentes y estructura de una valla", "Ajuste de estructura", "Coordinación de accesorios en altura."),
+      photo(`${ELECTRICOS}electrico-031.webp`, "Montaje de elementos publicitarios", "Proyecto publicitario", "Ejecución en un mismo frente."),
     ],
   },
 };
@@ -93,8 +126,10 @@ const projectSummary = document.querySelector("[data-project-summary]");
 const lightbox = document.querySelector("[data-lightbox]");
 const lightboxImage = document.querySelector("[data-lightbox-image]");
 const lightboxCaption = document.querySelector("[data-lightbox-caption]");
+const lightboxClose = document.querySelector("[data-lightbox-close]");
 let activeProjectList = [];
 let activeProjectIndex = 0;
+let lightboxTrigger = null;
 
 const renderProjects = (categoryKey) => {
   const category = projectCategories[categoryKey];
@@ -114,54 +149,73 @@ const renderProjects = (categoryKey) => {
   category.items.forEach((item, index) => {
     const card = document.createElement("article");
     card.className = "project-card";
-    card.innerHTML = `
-      <button type="button" aria-label="Ampliar proyecto: ${item.title}">
-        <div class="media-frame">
-          <img src="${item.src}" alt="${item.alt}" loading="lazy" decoding="async" />
-        </div>
-        <div class="project-card-content">
-          <h3>${item.title}</h3>
-          <p>${item.text}</p>
-        </div>
-      </button>
-    `;
 
-    card.querySelector("button")?.addEventListener("click", () => openLightbox(index));
+    const trigger = document.createElement("button");
+    trigger.type = "button";
+    trigger.setAttribute("aria-label", `Ampliar imagen: ${item.title}`);
+
+    const frame = document.createElement("div");
+    frame.className = "media-frame";
+    const img = document.createElement("img");
+    img.src = item.src;
+    img.alt = item.alt;
+    img.loading = "lazy";
+    img.decoding = "async";
+    img.width = 800;
+    img.height = 600;
+    frame.appendChild(img);
+
+    const content = document.createElement("div");
+    content.className = "project-card-content";
+    const title = document.createElement("h3");
+    title.textContent = item.title;
+    const text = document.createElement("p");
+    text.textContent = item.text;
+    content.append(title, text);
+
+    trigger.append(frame, content);
+    trigger.addEventListener("click", () => openLightbox(index, trigger));
+    card.appendChild(trigger);
     projectGrid.appendChild(card);
   });
 };
 
 projectButtons.forEach((button) => {
-  button.addEventListener("click", () => {
-    renderProjects(button.dataset.projectFilter);
-  });
+  button.addEventListener("click", () => renderProjects(button.dataset.projectFilter));
 });
 
-const openLightbox = (index) => {
+const showLightboxItem = (index) => {
   const item = activeProjectList[index];
-  if (!item || !lightbox) return;
-
+  if (!item || !lightboxImage) return;
   activeProjectIndex = index;
   lightboxImage.src = item.src;
   lightboxImage.alt = item.alt;
-  lightboxCaption.textContent = item.title;
+  if (lightboxCaption) lightboxCaption.textContent = item.title;
+};
+
+const openLightbox = (index, trigger) => {
+  if (!lightbox) return;
+  lightboxTrigger = trigger || document.activeElement;
+  showLightboxItem(index);
   lightbox.setAttribute("aria-hidden", "false");
   document.body.classList.add("lightbox-open");
+  lightboxClose?.focus();
 };
 
 const closeLightbox = () => {
   if (!lightbox) return;
   lightbox.setAttribute("aria-hidden", "true");
   document.body.classList.remove("lightbox-open");
+  if (lightboxTrigger instanceof HTMLElement) lightboxTrigger.focus();
+  lightboxTrigger = null;
 };
 
 const moveLightbox = (direction) => {
   if (!activeProjectList.length) return;
-  activeProjectIndex = (activeProjectIndex + direction + activeProjectList.length) % activeProjectList.length;
-  openLightbox(activeProjectIndex);
+  showLightboxItem((activeProjectIndex + direction + activeProjectList.length) % activeProjectList.length);
 };
 
-document.querySelector("[data-lightbox-close]")?.addEventListener("click", closeLightbox);
+lightboxClose?.addEventListener("click", closeLightbox);
 document.querySelector("[data-lightbox-prev]")?.addEventListener("click", () => moveLightbox(-1));
 document.querySelector("[data-lightbox-next]")?.addEventListener("click", () => moveLightbox(1));
 
@@ -174,57 +228,23 @@ document.addEventListener("keydown", (event) => {
   if (event.key === "Escape") closeLightbox();
   if (event.key === "ArrowLeft") moveLightbox(-1);
   if (event.key === "ArrowRight") moveLightbox(1);
-});
-
-renderProjects("trabajos-alturas");
-
-const counters = document.querySelectorAll("[data-counter-target]");
-
-const animateCounter = (element) => {
-  const target = Number(element.dataset.counterTarget);
-  const duration = reducedMotion ? 0 : 1200;
-  const formatter = new Intl.NumberFormat("es-CO");
-
-  if (!duration) {
-    element.textContent = formatter.format(target);
-    return;
-  }
-
-  const start = performance.now();
-  const step = (timestamp) => {
-    const progress = Math.min((timestamp - start) / duration, 1);
-    const eased = 1 - Math.pow(1 - progress, 3);
-    element.textContent = formatter.format(Math.round(target * eased));
-    if (progress < 1) {
-      requestAnimationFrame(step);
+  if (event.key === "Tab") {
+    const focusable = Array.from(lightbox.querySelectorAll("button"));
+    const first = focusable[0];
+    const last = focusable[focusable.length - 1];
+    if (event.shiftKey && document.activeElement === first) {
+      event.preventDefault();
+      last.focus();
+    } else if (!event.shiftKey && document.activeElement === last) {
+      event.preventDefault();
+      first.focus();
     }
-  };
-
-  requestAnimationFrame(step);
-};
-
-if (counters.length) {
-  const counterObserver = new IntersectionObserver((entries, observer) => {
-    entries.forEach((entry) => {
-      if (!entry.isIntersecting) return;
-      animateCounter(entry.target);
-      observer.unobserve(entry.target);
-    });
-  }, { threshold: 0.45 });
-
-  counters.forEach((counter) => counterObserver.observe(counter));
-}
-
-const testimonialsTrack = document.querySelector("[data-testimonials-track]");
-document.querySelectorAll("[data-testimonial-nav]").forEach((button) => {
-  button.addEventListener("click", () => {
-    if (!testimonialsTrack) return;
-    const cardWidth = testimonialsTrack.firstElementChild?.getBoundingClientRect().width || 320;
-    const offset = button.dataset.testimonialNav === "next" ? cardWidth + 16 : -(cardWidth + 16);
-    testimonialsTrack.scrollBy({ left: offset, behavior: reducedMotion ? "auto" : "smooth" });
-  });
+  }
 });
 
+renderProjects("fachadas");
+
+/* ---------- Preguntas frecuentes ---------- */
 const faqItems = Array.from(document.querySelectorAll("[data-faq-list] details"));
 faqItems.forEach((item) => {
   item.addEventListener("toggle", () => {
@@ -235,35 +255,152 @@ faqItems.forEach((item) => {
   });
 });
 
+/* ---------- Botón flotante de WhatsApp: mensaje según la sección visible ---------- */
+const waFloat = document.querySelector("[data-wa-float]");
+if (waFloat) {
+  const messages = {
+    servicio: "Hola S.E.A., quiero cotizar un servicio en alturas.",
+    navidad: "Hola S.E.A., quiero cotizar un proyecto de decoración navideña.",
+    general: "Hola S.E.A., quiero información sobre sus servicios.",
+  };
+  const sectionTopics = { inicio: "servicio", servicios: "servicio", navidad: "navidad" };
+
+  const setTopic = (topic) => {
+    waFloat.href = whatsappUrl(messages[topic] || messages.general);
+  };
+  setTopic("general");
+
+  if ("IntersectionObserver" in window) {
+    const topicObserver = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) setTopic(sectionTopics[entry.target.id] || "general");
+        });
+      },
+      { rootMargin: "-45% 0px -45% 0px", threshold: 0 },
+    );
+    document.querySelectorAll("main > section[id]").forEach((section) => topicObserver.observe(section));
+  }
+
+  // Entrada suave tras la primera carga (respeta prefers-reduced-motion vía CSS).
+  requestAnimationFrame(() => waFloat.classList.add("is-visible"));
+}
+
+/* ---------- Formulario ---------- */
 const form = document.querySelector("[data-contact-form]");
 const formFeedback = document.querySelector("[data-form-feedback]");
+const whatsappFormButton = document.querySelector("[data-form-whatsapp]");
 
-form?.addEventListener("submit", (event) => {
-  event.preventDefault();
+const setFeedback = (message, state) => {
+  if (!formFeedback) return;
+  formFeedback.textContent = message;
+  formFeedback.dataset.state = state || "";
+};
+
+const validators = {
+  nombre: (value) => (value.trim().length >= 2 ? "" : "Escribe tu nombre o el de tu empresa."),
+  correo: (value) => (/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value.trim()) ? "" : "Escribe un correo válido, por ejemplo nombre@empresa.com."),
+  mensaje: (value) => (value.trim().length >= 10 ? "" : "Cuéntanos brevemente tu proyecto (mínimo 10 caracteres)."),
+};
+
+const validateForm = () => {
+  if (!form) return false;
   const data = new FormData(form);
-  const message = [
-    "Hola S.E.A., quiero solicitar información.",
+  let firstInvalid = null;
+  let valid = true;
+
+  const setError = (name, message) => {
+    const field = form.elements[name];
+    const errorEl = form.querySelector(`[data-error-for="${name}"]`);
+    if (errorEl) errorEl.textContent = message;
+    field?.setAttribute("aria-invalid", message ? "true" : "false");
+    if (message) {
+      valid = false;
+      firstInvalid = firstInvalid || field;
+    }
+  };
+
+  Object.entries(validators).forEach(([name, check]) => setError(name, check(String(data.get(name) || ""))));
+  setError("consentimiento", data.get("consentimiento") ? "" : "Debes autorizar el tratamiento de datos para continuar.");
+
+  firstInvalid?.focus();
+  return valid;
+};
+
+const buildFormMessage = () => {
+  const data = new FormData(form);
+  return [
+    "Hola S.E.A., quiero solicitar una cotización.",
     `Nombre o empresa: ${data.get("nombre")}`,
     `Correo: ${data.get("correo")}`,
     `Servicio: ${data.get("servicio")}`,
-    `Detalle: ${data.get("mensaje")}`,
-  ].join("\\n");
+    `Proyecto: ${data.get("mensaje")}`,
+  ].join("\n");
+};
 
-  window.open(`https://wa.me/573336449110?text=${encodeURIComponent(message)}`, "_blank", "noopener");
-  if (formFeedback) {
-    formFeedback.textContent = "Abrimos WhatsApp para continuar tu solicitud con el contexto diligenciado.";
+form?.addEventListener("input", (event) => {
+  const target = event.target;
+  if (!(target instanceof HTMLElement) || !target.getAttribute("aria-invalid")) return;
+  const errorEl = form.querySelector(`[data-error-for="${target.getAttribute("name")}"]`);
+  if (errorEl) errorEl.textContent = "";
+  target.setAttribute("aria-invalid", "false");
+});
+
+whatsappFormButton?.addEventListener("click", () => {
+  if (!validateForm()) {
+    setFeedback("Revisa los campos marcados.", "error");
+    return;
+  }
+  trackEvent("form_submit", { method: "whatsapp" });
+  window.open(whatsappUrl(buildFormMessage()), "_blank", "noopener,noreferrer");
+  setFeedback("Abrimos WhatsApp con tu solicitud para que la envíes.", "success");
+});
+
+form?.addEventListener("submit", async (event) => {
+  event.preventDefault();
+  if (!validateForm()) {
+    setFeedback("Revisa los campos marcados.", "error");
+    return;
+  }
+
+  const endpoint = form.dataset.endpoint || "";
+  const submitButton = form.querySelector('button[type="submit"]');
+
+  if (!endpoint || endpoint.includes("COMPLETAR")) {
+    setFeedback("El envío por correo aún no está activo. Usa el botón «Enviar por WhatsApp» o escríbenos a solucionesenalturas@gmail.com.", "error");
+    return;
+  }
+
+  submitButton?.setAttribute("disabled", "");
+  setFeedback("Enviando solicitud…", "pending");
+
+  try {
+    const response = await fetch(endpoint, {
+      method: "POST",
+      headers: { Accept: "application/json" },
+      body: new FormData(form),
+    });
+    if (!response.ok) throw new Error(`HTTP ${response.status}`);
+    trackEvent("form_submit", { method: "email" });
+    form.reset();
+    setFeedback("¡Gracias! Recibimos tu solicitud y te responderemos pronto.", "success");
+  } catch (error) {
+    setFeedback("No pudimos enviar el formulario. Inténtalo de nuevo o escríbenos por WhatsApp.", "error");
+  } finally {
+    submitButton?.removeAttribute("disabled");
   }
 });
 
 document.querySelector("[data-current-year]")?.append(String(new Date().getFullYear()));
 
+/* ---------- Partículas de nieve (sección Navidad) ---------- */
 const holidayCanvas = document.querySelector("[data-holiday-canvas]");
 if (holidayCanvas && !reducedMotion) {
   const context = holidayCanvas.getContext("2d");
   const particles = [];
   let width = 0;
   let height = 0;
-  let holidayVisible = true;
+  let holidayVisible = false;
 
   const resizeCanvas = () => {
     const ratio = window.devicePixelRatio || 1;
@@ -321,12 +458,13 @@ if (holidayCanvas && !reducedMotion) {
 
   const holidaySection = document.querySelector("#navidad");
   if (holidaySection) {
-    const visibilityObserver = new IntersectionObserver((entries) => {
-      entries.forEach((entry) => {
-        holidayVisible = entry.isIntersecting;
-      });
-    }, { threshold: 0.1 });
-
-    visibilityObserver.observe(holidaySection);
+    new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          holidayVisible = entry.isIntersecting;
+        });
+      },
+      { threshold: 0.1 },
+    ).observe(holidaySection);
   }
 }
