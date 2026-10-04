@@ -43,14 +43,14 @@
   padding-block: clamp(4rem, 10vw, 8rem);
   background:
     linear-gradient(90deg, rgba(10, 11, 13, 0.94) 0%, rgba(10, 11, 13, 0.78) 55%, rgba(10, 11, 13, 0.55) 100%),
-    url("assets/galeria/fachadas-pintura/fachada-018-mobile.webp") center / cover no-repeat;
+    url("assets/galeria/fachadas-pintura/fachada-004-mobile.webp") center / cover no-repeat;
 }
 
 @media (min-width: 701px) {
   .hero-photo {
     background-image:
       linear-gradient(90deg, rgba(10, 11, 13, 0.94) 0%, rgba(10, 11, 13, 0.78) 55%, rgba(10, 11, 13, 0.55) 100%),
-      url("assets/galeria/fachadas-pintura/fachada-018.webp");
+      url("assets/galeria/fachadas-pintura/fachada-004.webp");
   }
 }
 
@@ -148,8 +148,7 @@
   background: rgba(255, 255, 255, 0.04);
 }
 
-.method-card .icon {
-  color: var(--color-accent);
+.method-card .icon {`n  color: #f87171;
 }
 
 .method-card p {
@@ -376,3 +375,39 @@ footer {
 .reveal{opacity:0;transform:translateY(16px);transition:opacity .5s ease,transform .5s ease}
 .reveal.is-visible{opacity:1;transform:none}
 @media(prefers-reduced-motion:reduce){.reveal{opacity:1;transform:none;transition:none}}
+/* ===== Marca y diseño (v3): un acento rojo, ámbar solo en .button-primary ===== */
+:root{--brand:#ef4444;--brand-soft:#f87171;--header-bg:#0a0a0b}
+:focus-visible,input:focus-visible,select:focus-visible,textarea:focus-visible{outline:3px solid var(--brand-soft);outline-offset:3px}
+.site-header{background:var(--header-bg);border-bottom:1px solid rgba(255,255,255,.08)}
+.site-header.is-scrolled{background:var(--header-bg);backdrop-filter:none}
+.brand{display:inline-flex;align-items:center;background:#fff;border-radius:14px;padding:.25rem .45rem;box-shadow:0 2px 10px rgba(0,0,0,.4)}
+.brand img{width:clamp(48px,6vw,64px);height:auto;filter:none}
+.footer-brand{padding:.3rem .5rem}
+.footer-brand img{width:72px}
+.site-nav .nav-button{display:inline-flex;align-items:center;gap:.45rem;background:transparent;border:1px solid rgba(255,255,255,.28);color:#fff}
+.site-nav .nav-button .icon,.header-call .icon,.call-link .icon{width:1.05rem;height:1.05rem}
+.header-call{display:none;align-items:center;gap:.4rem;margin-left:auto;min-height:48px;padding:0 1rem;border:1px solid rgba(255,255,255,.28);border-radius:999px;color:#fff;font-weight:700;font-size:.9rem}
+#site-nav a.is-active{color:var(--brand-soft)}
+.service-link:hover,.service-link:focus-visible{color:var(--brand-soft)}
+.service-label{color:var(--brand-soft)}
+.service-card-media{height:100%}
+.service-body{display:flex;flex-direction:column;height:100%}
+.service-actions{margin-top:auto;padding-top:1rem;display:flex;flex-wrap:wrap;align-items:center;gap:.5rem 1.2rem}
+.service-actions .service-link{margin-top:0}
+.service-more{font-weight:600;color:var(--color-muted);text-decoration:underline;text-underline-offset:4px}
+.service-more:hover,.service-more:focus-visible{color:#fff}
+.service-photo{background:#15171b}
+.deliver-grid{list-style:none;margin:0;padding:0;display:grid;gap:var(--space-2);grid-template-columns:repeat(4,minmax(0,1fr))}
+.docs-list{list-style:none;margin:0;padding:0;display:grid;gap:.75rem}
+.docs-list a{display:inline-flex;align-items:center;gap:.5rem;font-weight:600;text-decoration:underline;text-underline-offset:4px}
+.coverage-note{margin-top:var(--space-3)}
+.call-link{display:inline-flex;align-items:center;gap:.45rem}
+.hp-field{position:absolute;left:-9999px;width:1px;height:1px;overflow:hidden}
+.service-card p,.section-heading>p,.holiday-copy p,.contact-copy p,.faq-list p{max-width:70ch}
+.section-heading h2{font-size:clamp(1.6rem,6vw,2.6rem);line-height:1.15;text-wrap:balance}
+.project-grid img{aspect-ratio:4/3;object-fit:cover;width:100%;height:auto;background:#15171b}
+@media(max-width:1000px){.deliver-grid{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media(max-width:920px){.header-call{display:inline-flex}.site-nav .nav-button{display:none}.site-nav{background:var(--header-bg)}}
+@media(max-width:560px){.deliver-grid{grid-template-columns:1fr}.section-heading h2{font-size:clamp(1.45rem,7vw,1.9rem)}}
+@media(max-width:700px){.holiday-canvas{display:none}}
+@media(prefers-reduced-motion:reduce){.holiday-canvas{display:none}.site-nav a{transition:none}}
