@@ -17,14 +17,20 @@ window.gtag = function gtag() {
   window.dataLayer.push(arguments);
 };
 
-if (analyticsEnabled) {
+// GA4 solo se carga tras la primera interacción del usuario y si hay ID real.
+const loadAnalytics = () => {
+  if (!analyticsEnabled || window.__gaLoaded) return;
+  window.__gaLoaded = true;
   const gaScript = document.createElement("script");
   gaScript.async = true;
   gaScript.src = `https://www.googletagmanager.com/gtag/js?id=${GA4_ID}`;
   document.head.appendChild(gaScript);
   window.gtag("js", new Date());
-  window.gtag("config", GA4_ID);
-}
+  window.gtag("config", GA4_ID, { anonymize_ip: true });
+};
+["pointerdown", "keydown", "scroll", "touchstart"].forEach((type) =>
+  window.addEventListener(type, loadAnalytics, { once: true, passive: true }),
+);
 
 const trackEvent = (name, params = {}) => {
   if (analyticsEnabled) window.gtag("event", name, params);
@@ -148,6 +154,8 @@ const renderProjects = (categoryKey, keepCount) => {
     const isActive = button.dataset.projectFilter === categoryKey;
     button.classList.toggle("is-active", isActive);
     button.setAttribute("aria-selected", String(isActive));
+    button.tabIndex = isActive ? 0 : -1;
+    if (isActive) projectGrid.setAttribute("aria-labelledby", button.id);
   });
 
   activeProjectList.forEach((item, index) => {
@@ -161,12 +169,15 @@ const renderProjects = (categoryKey, keepCount) => {
     const frame = document.createElement("div");
     frame.className = "media-frame";
     const img = document.createElement("img");
-    img.src = item.src;
+    const thumb = item.src.replace(/\/([^/]+)$/, "/thumbs/$1");
+    img.src = thumb;
+    img.srcset = `${thumb} 400w, ${item.src} 900w`;
+    img.sizes = "(min-width:1024px) 25vw, (min-width:600px) 50vw, 100vw";
     img.alt = item.alt;
     img.loading = "lazy";
     img.decoding = "async";
-    img.width = 800;
-    img.height = 600;
+    img.width = 400;
+    img.height = 300;
     frame.appendChild(img);
 
     const content = document.createElement("div");
@@ -191,9 +202,23 @@ projectMore?.addEventListener("click", () => {
   renderProjects(currentCategory, true);
 });
 
-projectButtons.forEach((button) => {
+projectButtons.forEach((button, i) => {
+  button.id = `tab-${button.dataset.projectFilter}`;
+  button.setAttribute("aria-controls", "project-panel");
   button.addEventListener("click", () => renderProjects(button.dataset.projectFilter));
+  button.addEventListener("keydown", (event) => {
+    const keys = { ArrowRight: 1, ArrowLeft: -1 };
+    let next = null;
+    if (event.key in keys) next = (i + keys[event.key] + projectButtons.length) % projectButtons.length;
+    if (event.key === "Home") next = 0;
+    if (event.key === "End") next = projectButtons.length - 1;
+    if (next === null) return;
+    event.preventDefault();
+    renderProjects(projectButtons[next].dataset.projectFilter);
+    projectButtons[next].focus();
+  });
 });
+if (projectGrid) projectGrid.id = "project-panel";
 
 const showLightboxItem = (index) => {
   const item = activeProjectList[index];
@@ -342,13 +367,13 @@ const validateForm = () => {
 const buildFormMessage = () => {
   const data = new FormData(form);
   return [
-    "Hola S.E.A., quiero solicitar una cotización.",
+    `Hola S.E.A., quiero cotizar: ${data.get("servicio") || "un servicio"}.`,
     `Nombre o empresa: ${data.get("nombre")}`,
     `Correo: ${data.get("correo")}`,
     `Teléfono: ${data.get("telefono")}`,
     `Servicio: ${data.get("servicio")}`,
     `Proyecto: ${data.get("mensaje")}`,
-  ].join("\n");
+  ].filter((line) => !/: (null|undefined)?$/.test(line)).join("\n");
 };
 
 form?.addEventListener("input", (event) => {
@@ -376,15 +401,22 @@ form?.addEventListener("submit", async (event) => {
     return;
   }
 
+  if (form.elements["empresa_web"]?.value) return; // honeypot: bots
+
   const endpoint = form.dataset.endpoint || "";
   const submitButton = form.querySelector('button[type="submit"]');
+  const fallbackToWhatsApp = (reason) => {
+    setFeedback(`${reason} Abrimos WhatsApp para que no pierdas tu solicitud.`, "error");
+    window.open(whatsappUrl(buildFormMessage()), "_blank", "noopener,noreferrer");
+  };
 
   if (!endpoint || endpoint.includes("COMPLETAR")) {
-    setFeedback("El envío por correo aún no está activo. Usa el botón «Enviar por WhatsApp» o escríbenos a solucionesenalturas@gmail.com.", "error");
+    fallbackToWhatsApp("El envío por correo no está disponible por ahora.");
     return;
   }
 
   submitButton?.setAttribute("disabled", "");
+  submitButton?.setAttribute("aria-busy", "true");
   setFeedback("Enviando solicitud…", "pending");
 
   try {
@@ -396,11 +428,12 @@ form?.addEventListener("submit", async (event) => {
     if (!response.ok) throw new Error(`HTTP ${response.status}`);
     trackEvent("form_submit", { method: "email" });
     form.reset();
-    setFeedback("¡Gracias! Recibimos tu solicitud y te responderemos pronto.", "success");
+    setFeedback("¡Gracias! Recibimos tu solicitud. Te respondemos en horario laboral.", "success");
   } catch (error) {
-    setFeedback("No pudimos enviar el formulario. Inténtalo de nuevo o escríbenos por WhatsApp.", "error");
+    fallbackToWhatsApp("No pudimos enviar el formulario.");
   } finally {
     submitButton?.removeAttribute("disabled");
+    submitButton?.removeAttribute("aria-busy");
   }
 });
 
@@ -408,7 +441,8 @@ document.querySelector("[data-current-year]")?.append(String(new Date().getFullY
 
 /* ---------- Partículas de nieve (sección Navidad) ---------- */
 const holidayCanvas = document.querySelector("[data-holiday-canvas]");
-if (holidayCanvas && !reducedMotion) {
+const isMobileViewport = window.matchMedia("(max-width: 700px)").matches;
+if (holidayCanvas && !reducedMotion && !isMobileViewport) {
   const context = holidayCanvas.getContext("2d");
   const particles = [];
   let width = 0;
@@ -518,4 +552,13 @@ if ("IntersectionObserver" in window && !window.matchMedia("(prefers-reduced-mot
     el.classList.add("reveal");
     revealObserver.observe(el);
   });
+}
+// Preselección por URL (?servicio=...) desde las páginas de servicio
+{
+  const wanted = new URLSearchParams(location.search).get("servicio");
+  const select = form?.elements["servicio"];
+  if (wanted && select) {
+    const option = Array.from(select.options).find((o) => o.textContent.trim() === wanted);
+    if (option) select.value = option.value;
+  }
 }
